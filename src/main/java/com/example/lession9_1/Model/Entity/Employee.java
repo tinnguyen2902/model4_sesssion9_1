@@ -14,6 +14,18 @@ public class Employee {
     private String phone;
     private Integer salary;
 
+    @Column(name = "avt_url")
+    private String avatarUrl;
+
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;

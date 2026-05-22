@@ -7,10 +7,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/employees")
@@ -23,4 +21,12 @@ public class EmployeeController {
             Employee savedEmployee = employeeService.save(dto);
             return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
         }
+    @PutMapping("/{id}/avatar")
+    public ResponseEntity<Employee> uploadAvatar(
+            @PathVariable Long id,
+            @RequestParam("image") MultipartFile file) {
+
+        Employee updatedEmployee = employeeService.uploadAvatar(id, file);
+        return ResponseEntity.ok(updatedEmployee);
+    }
 }
