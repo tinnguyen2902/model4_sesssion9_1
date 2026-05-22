@@ -1,7 +1,6 @@
 package com.example.lession9_1.Exception;
 
 import com.example.lession9_1.Model.DTO.ApiResponse;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -14,17 +13,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// nơi xử lý lỗi cục bộ
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<Map<String,String>>> handleValidationExceptions(
             MethodArgumentNotValidException ex
     ) {
         Map<String, String> map = new HashMap<>();
-        // lấy ds lỗi dưới dạng oj
         List<ObjectError> errors = ex.getBindingResult().getAllErrors();
-        // duyệt qua từng lỗi
         for (ObjectError error : errors) {
             if (error instanceof FieldError) {
                 FieldError fieldError = (FieldError) error;
@@ -33,29 +30,36 @@ public class GlobalExceptionHandler {
                 map.put(fieldName, errorMessage);
             }
         }
-       // đóng gói ds lỗi
         ApiResponse<Map<String, String>> response = new ApiResponse<>();
         response.setStatus("FAIL");
         response.setMessage("Dữ liệu không hợp lệ");
         response.setData(map);
-        // trả về kèm theo mã 400
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-    //LS4
+
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiResponse<String>> handleResourceNotFound(ResourceNotFoundException ex){
-        ApiResponse<String> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<Map<String,String>>> handleResourceNotFound(ResourceNotFoundException ex){
+        Map<String, String> errorMap  = new HashMap<>();
+        errorMap.put("message", ex.getMessage());
+
+        ApiResponse<Map<String, String>> response = new ApiResponse<>(); // <-- Đã sửa
         response.setStatus("FAIL");
         response.setMessage(ex.getMessage());
-        response.setData(null);
-        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+        response.setData(errorMap);
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
     @ExceptionHandler(DuplicateResourceException.class)
-    public ResponseEntity<ApiResponse<String>> handleDuplicateResourceException(DuplicateResourceException ex){
-        ApiResponse<String> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<Map<String,String>>> handleDuplicateResourceException(DuplicateResourceException ex){
+        Map<String, String> errorMap  = new HashMap<>();
+        errorMap.put("message", ex.getMessage());
+
+        ApiResponse<Map<String, String>> response = new ApiResponse<>();
         response.setStatus("FAIL");
         response.setMessage(ex.getMessage());
-        response.setData(null);
-        return new ResponseEntity<>(response,HttpStatus.CONFLICT);
+        response.setData(errorMap);
+
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.lession9_1.Service;
 
+import com.example.lession9_1.Exception.DuplicateResourceException;
 import com.example.lession9_1.Model.DTO.EmployeeDTO;
 import com.example.lession9_1.Model.Entity.Department;
 import com.example.lession9_1.Model.Entity.Employee;
@@ -16,6 +17,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     private DepartmentRepositoty  departmentRepositoty;
     @Override
     public Employee save(EmployeeDTO dto){
+        if (employeeRepository.existsByEmail(dto.getEmail())){
+            throw new DuplicateResourceException("Email " +  dto.getEmail() + " đã tồn tại");
+        }
+        // tìm kiếm phòng ban
         Department department = departmentRepositoty.findById(dto.getDepartmentId())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy phòng với id: " + dto.getDepartmentId()));
        // nạp dữ liệu vào
