@@ -1,6 +1,7 @@
 package com.example.lession9_1.Exception;
 
 import com.example.lession9_1.Model.DTO.ApiResponse;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -39,5 +40,22 @@ public class GlobalExceptionHandler {
         response.setData(map);
         // trả về kèm theo mã 400
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+    //LS4
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiResponse<String>> handleResourceNotFound(ResourceNotFoundException ex){
+        ApiResponse<String> response = new ApiResponse<>();
+        response.setStatus("FAIL");
+        response.setMessage(ex.getMessage());
+        response.setData(null);
+        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<ApiResponse<String>> handleDuplicateResourceException(DuplicateResourceException ex){
+        ApiResponse<String> response = new ApiResponse<>();
+        response.setStatus("FAIL");
+        response.setMessage(ex.getMessage());
+        response.setData(null);
+        return new ResponseEntity<>(response,HttpStatus.CONFLICT);
     }
 }
