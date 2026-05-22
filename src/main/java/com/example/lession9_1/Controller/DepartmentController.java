@@ -1,8 +1,8 @@
 package com.example.lession9_1.Controller;
 
-import com.example.lession9_1.DTO.ApiResponse;
-import com.example.lession9_1.DTO.DepartmentDTO;
-import com.example.lession9_1.Entity.Department;
+import com.example.lession9_1.Model.DTO.ApiResponse;
+import com.example.lession9_1.Model.DTO.DepartmentDTO;
+import com.example.lession9_1.Model.Entity.Department;
 import com.example.lession9_1.Service.DepartmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

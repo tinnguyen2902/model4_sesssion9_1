@@ -1,4 +1,4 @@
-package com.example.lession9_1.DTO;
+package com.example.lession9_1.Model.DTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

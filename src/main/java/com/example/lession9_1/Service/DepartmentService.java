@@ -1,7 +1,7 @@
 package com.example.lession9_1.Service;
 
-import com.example.lession9_1.DTO.DepartmentDTO;
-import com.example.lession9_1.Entity.Department;
+import com.example.lession9_1.Model.DTO.DepartmentDTO;
+import com.example.lession9_1.Model.Entity.Department;
 
 
 

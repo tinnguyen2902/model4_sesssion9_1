@@ -1,4 +1,4 @@
-package com.example.lession9_1.DTO;
+package com.example.lession9_1.Model.DTO;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

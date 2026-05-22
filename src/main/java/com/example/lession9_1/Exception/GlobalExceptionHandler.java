@@ -1,7 +1,6 @@
 package com.example.lession9_1.Exception;
 
-import ch.qos.logback.core.model.processor.ModelHandlerException;
-import com.example.lession9_1.DTO.ApiResponse;
+import com.example.lession9_1.Model.DTO.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 // nơi xử lý lỗi cục bộ
 @RestControllerAdvice
