@@ -1,4 +1,8 @@
 package com.example.lession9_1.Repository;
 
-public interface DepartmentRepositoty {
+import com.example.lession9_1.Entity.Department;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DepartmentRepositoty extends JpaRepository<Department, Long> {
+
 }
